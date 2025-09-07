@@ -1,19 +1,19 @@
 # defaults
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
-SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = adder8.v   # <-- your actual DUT file
+SRC_DIR = $(PWD)/src
+PROJECT_SOURCES = adder.v  # <-- your actual DUT file
 
 ifneq ($(GATES),yes)
 
 # RTL simulation:
-SIM_BUILD        = sim_build/rtl
+SIM_BUILD       = sim_build/rtl
 VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))
 
 else
 
 # Gate level simulation:
-SIM_BUILD        = sim_build/gl
+SIM_BUILD       = sim_build/gl
 COMPILE_ARGS    += -DGL_TEST
 COMPILE_ARGS    += -DFUNCTIONAL
 COMPILE_ARGS    += -DSIM
@@ -29,8 +29,8 @@ endif
 COMPILE_ARGS     += -I$(SRC_DIR)
 
 # Include the testbench sources:
-VERILOG_SOURCES += $(PWD)/tb.v
-TOPLEVEL = tb
+VERILOG_SOURCES += $(PWD)/adder_tb.v
+TOPLEVEL = adder_tb
 
 # If you don’t use cocotb python test, comment out:
 # MODULE = test
